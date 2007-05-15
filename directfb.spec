@@ -1,10 +1,9 @@
 %define	name	directfb
-%define version 0.9.25.1
-%define release %mkrel 4
+%define version 1.0.0
+%define release %mkrel 1
 %define	oname	DirectFB
-%define api 0.9
-%define	major	25
-%define theirver 0.9.25
+%define api 1.0
+%define	major	0
 %define	libname	%mklibname %{name} %{api}_%{major}
 
 # Multiple applications support
@@ -83,6 +82,7 @@ CFLAGS="$RPM_OPT_FLAGS -O3" \
 	--disable-fast-install \
 	--disable-avifile \
 	--disable-debug \
+	--with-gfxdrivers=ati128,cle266,cyber5k,i810,i830,mach64,neomagic,nsc,nvidia,radeon,savage,sis315,tdfx,unichrome \
 %if %build_multi
 	--enable-multi
 %else
@@ -114,8 +114,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README* AUTHORS NEWS TODO
 %attr(755,root,root) %{_libdir}/lib*%{api}.so.%{major}*
-%{_libdir}/directfb-%{theirver}
-%{_datadir}/directfb-%{theirver}
+%{_libdir}/directfb-%{api}-%major
+%{_datadir}/directfb-%{version}
 
 
 %files -n %{libname}-devel
@@ -131,6 +131,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/dfbpenmount
 %{_bindir}/dfbscreen
 %{_bindir}/dfbsummon
+%{_bindir}/mkdfiff
+%{_bindir}/mkdgiff
 %defattr(644,root,root,755)
 %{_includedir}/directfb
 %{_includedir}/directfb-internal
