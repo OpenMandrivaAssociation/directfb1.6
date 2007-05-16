@@ -56,7 +56,9 @@ Requires:	%{libname} = %{version}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{oname}-devel = %{version}-%{release} %{name}-devel = %{version}-%{release}
 Provides:	libdirectfb0.9-devel = %{version}-%{release}
-Conflicts:	%{_lib}directfb0.9_20-devel %{_lib}directfb0.9_21-devel
+Conflicts:	%mklibname -d directfb 0.9_20
+Conflicts:	%mklibname -d directfb 0.9_21
+Conflicts:	%mklibname -d directfb 0.9_25
 
 %description -n	%{libname}-devel
 DirectFB header files for building applications based on %oname. 
