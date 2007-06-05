@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.0.0
-%define release %mkrel 2
+%define release %mkrel 3
 %define	oname	DirectFB
 %define api 1.0
 %define	major	0
@@ -23,7 +23,7 @@ URL:		http://www.directfb.org/
 BuildRequires:	libpng-devel >= 1.2.0
 BuildRequires:	libjpeg-devel >= 6b
 BuildRequires:	freetype2-devel >= 2.0.2
-BuildRequires:	libsysfs-devel
+BuildRequires:	libsysfs2-devel
 BuildRequires:  kernel-source
 BuildRequires:  automake1.8
 BuildRequires:	SDL-devel
