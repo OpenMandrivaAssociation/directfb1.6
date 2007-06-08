@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.0.0
-%define release %mkrel 3
+%define release %mkrel 4
 %define	oname	DirectFB
 %define api 1.0
 %define	major	0
@@ -81,6 +81,7 @@ CFLAGS="$RPM_OPT_FLAGS -O3" \
 %configure2_5x \
 	--disable-maintainer-mode \
 	--enable-shared \
+	--enable-static \
 	--disable-fast-install \
 	--disable-avifile \
 	--disable-debug \
@@ -116,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README* AUTHORS NEWS TODO
 %attr(755,root,root) %{_libdir}/lib*%{api}.so.%{major}*
+%exclude %{_libdir}/directfb-%{api}-%major/*/*.o
+%exclude %{_libdir}/directfb-%{api}-%major/*/*/*.o
 %{_libdir}/directfb-%{api}-%major
 %{_datadir}/directfb-%{version}
 
@@ -144,6 +147,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 %attr(644,root,root) %{_libdir}/*.la
 %{_libdir}/*.so
+%{_libdir}/*.a
+%{_libdir}/*.la
+%{_libdir}/directfb-%{api}-%major/*/*.o
+%{_libdir}/directfb-%{api}-%major/*/*/*.o
 
 %files doc
 %defattr(644,root,root,755)
