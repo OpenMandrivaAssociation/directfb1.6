@@ -19,6 +19,8 @@ Release:	%{release}
 License:	GPL
 Group:		System/Libraries
 Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.bz2
+# from Debian
+Patch0:		03_link_static_sysfs.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libpng-devel >= 1.2.0
 BuildRequires:	libjpeg-devel >= 6b
@@ -59,6 +61,8 @@ Provides:	libdirectfb0.9-devel = %{version}-%{release}
 Conflicts:	%mklibname -d directfb 0.9_20
 Conflicts:	%mklibname -d directfb 0.9_21
 Conflicts:	%mklibname -d directfb 0.9_25
+# required for systems/libdirectfb_fbdev.so (find-requires does not look in subdirs)
+Requires:	libsysfs-devel
 
 %description -n	%{libname}-devel
 DirectFB header files for building applications based on %oname. 
@@ -72,6 +76,7 @@ DirectFB documentation and examples.
 
 %prep
 %setup  -q -n %{oname}-%{version}
+%patch0 -p0 -b .sysfs
 aclocal-1.8
 autoconf
 automake-1.8 -a -c
