@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.0.0
-%define release %mkrel 5
+%define release %mkrel 6
 %define	oname	DirectFB
 %define api 1.0
 %define	major	0
@@ -62,8 +62,8 @@ Provides:	libdirectfb0.9-devel = %{version}-%{release}
 Conflicts:	%mklibname -d directfb 0.9_20
 Conflicts:	%mklibname -d directfb 0.9_21
 Conflicts:	%mklibname -d directfb 0.9_25
-# required for systems/libdirectfb_fbdev.so (find-requires does not look in subdirs)
-Requires:	libsysfs-devel
+# required for systems/libdirectfb_fbdev.{so,a} (find-requires does not look in subdirs)
+Requires:	libsysfs-static-devel
 
 %description -n	%{libname}-devel
 DirectFB header files for building applications based on %oname. 
