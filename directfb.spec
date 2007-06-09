@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.0.0
-%define release %mkrel 4
+%define release %mkrel 5
 %define	oname	DirectFB
 %define api 1.0
 %define	major	0
@@ -21,6 +21,7 @@ Group:		System/Libraries
 Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.bz2
 # from Debian
 Patch0:		03_link_static_sysfs.patch
+Patch1:		08_link_static_ar.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libpng-devel >= 1.2.0
 BuildRequires:	libjpeg-devel >= 6b
@@ -77,6 +78,7 @@ DirectFB documentation and examples.
 %prep
 %setup  -q -n %{oname}-%{version}
 %patch0 -p0 -b .sysfs
+%patch1 -p0 -b .ar
 aclocal-1.8
 autoconf
 automake-1.8 -a -c
@@ -122,8 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README* AUTHORS NEWS TODO
 %attr(755,root,root) %{_libdir}/lib*%{api}.so.%{major}*
-%exclude %{_libdir}/directfb-%{api}-%major/*/*.o
-%exclude %{_libdir}/directfb-%{api}-%major/*/*/*.o
+%exclude %{_libdir}/directfb-%{api}-%major/*/*.a
+%exclude %{_libdir}/directfb-%{api}-%major/*/*/*.a
 %{_libdir}/directfb-%{api}-%major
 %{_datadir}/directfb-%{version}
 
@@ -154,8 +156,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 %{_libdir}/*.a
 %{_libdir}/*.la
-%{_libdir}/directfb-%{api}-%major/*/*.o
-%{_libdir}/directfb-%{api}-%major/*/*/*.o
+%{_libdir}/directfb-%{api}-%major/*/*.a
+%{_libdir}/directfb-%{api}-%major/*/*/*.a
 
 %files doc
 %defattr(644,root,root,755)
