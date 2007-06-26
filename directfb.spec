@@ -1,10 +1,11 @@
 %define	name	directfb
 %define version 1.0.0
-%define release %mkrel 6
+%define release %mkrel 7
 %define	oname	DirectFB
 %define api 1.0
 %define	major	0
 %define	libname	%mklibname %{name} %{api}_%{major}
+%define develname %mklibname %name -d
 
 # Multiple applications support
 # Requires fusion kernel module
@@ -52,7 +53,7 @@ This package contains the %oname shared library and interface modules.
 It's required for running apps based on %oname.
 
 
-%package -n	%{libname}-devel
+%package -n	%develname
 Group:		Development/C
 Summary:	Header files for compiling DirectFB applications
 Requires:	%{libname} = %{version}
@@ -64,8 +65,9 @@ Conflicts:	%mklibname -d directfb 0.9_21
 Conflicts:	%mklibname -d directfb 0.9_25
 # required for systems/libdirectfb_fbdev.{so,a} (find-requires does not look in subdirs)
 Requires:	libsysfs-static-devel
+Obsoletes:	%mklibname %name 1.0_0 -d
 
-%description -n	%{libname}-devel
+%description -n	%develname
 DirectFB header files for building applications based on %oname. 
 
 %package	doc
@@ -130,7 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/directfb-%{version}
 
 
-%files -n %{libname}-devel
+%files -n %develname
 %defattr(755,root,root,755)
 %{_bindir}/directfb-config
 %multiarch %{multiarch_bindir}/directfb-config
