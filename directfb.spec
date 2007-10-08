@@ -1,6 +1,6 @@
 %define	name	directfb
-%define version 1.0.0
-%define release %mkrel 7
+%define version 1.0.1
+%define release %mkrel 1
 %define	oname	DirectFB
 %define api 1.0
 %define	major	0
@@ -19,7 +19,7 @@ Version:	%{version}
 Release:	%{release}
 License:	GPL
 Group:		System/Libraries
-Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.bz2
+Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.gz
 # from Debian
 Patch0:		03_link_static_sysfs.patch
 Patch1:		08_link_static_ar.patch
