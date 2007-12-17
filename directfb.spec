@@ -37,7 +37,6 @@ BuildRequires:	fusion-devel >= 3.0
 # prevent linking devel subpackage with older libraries:
 # (blino) please uncomment when major is changed
 # BuildConflicts: directfb-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 DirectFB hardware graphics acceleration - libraries.
