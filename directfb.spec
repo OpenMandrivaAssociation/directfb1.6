@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.0.1
-%define release %mkrel 1
+%define release %mkrel 2
 %define	oname	DirectFB
 %define api 1.0
 %define	major	0
@@ -23,6 +23,7 @@ Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.gz
 # from Debian
 Patch0:		03_link_static_sysfs.patch
 Patch1:		08_link_static_ar.patch
+Patch2:		DirectFB-1.0.1-underlink.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libpng-devel >= 1.2.0
 BuildRequires:	libjpeg-devel >= 6b
@@ -81,6 +82,11 @@ DirectFB documentation and examples.
 %setup  -q -n %{oname}-%{version}
 %patch0 -p0 -b .sysfs
 %patch1 -p0 -b .ar
+%patch2 -p1
+
+perl -p -i -e 's@-L/usr/X11R6/lib@@;s@-I/usr/X11R6/include@@' \
+    configure.in directfb-config.in
+
 aclocal-1.8
 autoconf
 automake-1.8 -a -c
