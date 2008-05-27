@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.0.1
-%define release %mkrel 2
+%define release %mkrel 3
 %define	oname	DirectFB
 %define api 1.0
 %define	major	0
@@ -24,6 +24,9 @@ Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.gz
 Patch0:		03_link_static_sysfs.patch
 Patch1:		08_link_static_ar.patch
 Patch2:		DirectFB-1.0.1-underlink.patch
+# Explicitly link with -lm. Was failing only on x86_64, but not on i586,
+# apparently because -O3 was generating code to bypass libm on i586.
+Patch3:		DirectFB-1.0.1-sincos-x86_64.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libpng-devel >= 1.2.0
 BuildRequires:	libjpeg-devel >= 6b
@@ -83,6 +86,7 @@ DirectFB documentation and examples.
 %patch0 -p0 -b .sysfs
 %patch1 -p0 -b .ar
 %patch2 -p1
+%patch3 -p1
 
 perl -p -i -e 's@-L/usr/X11R6/lib@@;s@-I/usr/X11R6/include@@' \
     configure.in directfb-config.in
