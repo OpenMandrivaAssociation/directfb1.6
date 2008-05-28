@@ -1,8 +1,8 @@
 %define	name	directfb
-%define version 1.0.1
-%define release %mkrel 3
+%define version 1.1.1
+%define release %mkrel 1
 %define	oname	DirectFB
-%define api 1.0
+%define api	1.1
 %define	major	0
 %define	libname	%mklibname %{name} %{api}_%{major}
 %define develname %mklibname %name -d
@@ -33,7 +33,6 @@ BuildRequires:	libjpeg-devel >= 6b
 BuildRequires:	freetype2-devel >= 2.0.2
 BuildRequires:	libsysfs2-devel
 BuildRequires:  kernel-source
-BuildRequires:  automake1.8
 BuildRequires:	SDL-devel
 %if %{build_multi}
 BuildRequires:	fusion-devel >= 3.0
@@ -67,9 +66,9 @@ Provides:	libdirectfb0.9-devel = %{version}-%{release}
 Conflicts:	%mklibname -d directfb 0.9_20
 Conflicts:	%mklibname -d directfb 0.9_21
 Conflicts:	%mklibname -d directfb 0.9_25
+Conflicts:	%mklibname -d directfb 1.0_0
 # required for systems/libdirectfb_fbdev.{so,a} (find-requires does not look in subdirs)
 Requires:	libsysfs-static-devel
-Obsoletes:	%mklibname %name 1.0_0 -d
 
 %description -n	%develname
 DirectFB header files for building applications based on %oname. 
@@ -83,17 +82,15 @@ DirectFB documentation and examples.
 
 %prep
 %setup  -q -n %{oname}-%{version}
-%patch0 -p0 -b .sysfs
-%patch1 -p0 -b .ar
+%patch0 -p1 -b .sysfs
+%patch1 -p1 -b .ar
 %patch2 -p1
 %patch3 -p1
 
 perl -p -i -e 's@-L/usr/X11R6/lib@@;s@-I/usr/X11R6/include@@' \
     configure.in directfb-config.in
 
-aclocal-1.8
-autoconf
-automake-1.8 -a -c
+autoreconf -ifs
 
 %build
 CFLAGS="$RPM_OPT_FLAGS -O3" \
@@ -116,12 +113,6 @@ CFLAGS="$RPM_OPT_FLAGS -O3" \
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
-# we don't ship these ATM, libtool relink problem
-#rm -f %buildroot/%_bindir/dfbg
-#rm -f %buildroot/%_mandir/man1/dfbg.1
-#rm -f %buildroot/%_bindir/dfbdump
-#rm -f %buildroot/%_bindir/dfbinfo
-#rm -f %buildroot/%_bindir/dfblayer
 
 # multiarch policy
 %multiarch_binaries $RPM_BUILD_ROOT%{_bindir}/directfb-config
@@ -144,19 +135,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %develname
 %defattr(755,root,root,755)
-%{_bindir}/directfb-config
+%{_bindir}/*
 %multiarch %{multiarch_bindir}/directfb-config
-%{_bindir}/directfb-csource
-%{_bindir}/dfblayer
-%{_bindir}/dfbdump
-%{_bindir}/dfbg
-%{_bindir}/dfbinfo
-%{_bindir}/dfbinput
-%{_bindir}/dfbpenmount
-%{_bindir}/dfbscreen
-%{_bindir}/dfbsummon
-%{_bindir}/mkdfiff
-%{_bindir}/mkdgiff
 %defattr(644,root,root,755)
 %{_includedir}/directfb
 %{_includedir}/directfb-internal
@@ -167,7 +147,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_libdir}/*.la
 %{_libdir}/*.so
 %{_libdir}/*.a
-%{_libdir}/*.la
 %{_libdir}/directfb-%{api}-%major/*/*.a
 %{_libdir}/directfb-%{api}-%major/*/*/*.a
 
