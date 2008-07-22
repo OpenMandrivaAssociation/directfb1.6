@@ -27,7 +27,10 @@ Patch2:		DirectFB-1.0.1-underlink.patch
 # Explicitly link with -lm. Was failing only on x86_64, but not on i586,
 # apparently because -O3 was generating code to bypass libm on i586.
 Patch3:		DirectFB-1.0.1-sincos-x86_64.patch
+# from git
+Patch4:		DirectFB-1.1.1-vnc-build.patch
 URL:		http://www.directfb.org/
+BuildRequires:	libvncserver-devel
 BuildRequires:	libpng-devel >= 1.2.0
 BuildRequires:	libjpeg-devel >= 6b
 BuildRequires:	freetype2-devel >= 2.0.2
@@ -86,6 +89,7 @@ DirectFB documentation and examples.
 %patch1 -p1 -b .ar
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1 -b .vnc
 
 perl -p -i -e 's@-L/usr/X11R6/lib@@;s@-I/usr/X11R6/include@@' \
     configure.in directfb-config.in
