@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.1.1
-%define release %mkrel 2
+%define release %mkrel 3
 %define	oname	DirectFB
 %define api	1.1
 %define	major	0
@@ -29,6 +29,9 @@ Patch2:		DirectFB-1.0.1-underlink.patch
 Patch3:		DirectFB-1.0.1-sincos-x86_64.patch
 # from git
 Patch4:		DirectFB-1.1.1-vnc-build.patch
+# try to reopen console devices when needed, for example by splashy which changes root
+# (from Debian package, Debian #462626)
+Patch5:		92_reopen_console.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libvncserver-devel
 BuildRequires:	libpng-devel >= 1.2.0
@@ -90,6 +93,7 @@ DirectFB documentation and examples.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1 -b .vnc
+%patch5 -p1 -b .reopen
 
 perl -p -i -e 's@-L/usr/X11R6/lib@@;s@-I/usr/X11R6/include@@' \
     configure.in directfb-config.in
