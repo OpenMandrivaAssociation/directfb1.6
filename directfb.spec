@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.1.1
-%define release %mkrel 3
+%define release %mkrel 4
 %define	oname	DirectFB
 %define api	1.1
 %define	major	0
@@ -141,6 +141,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*%{api}.so.%{major}*
 %exclude %{_libdir}/directfb-%{api}-%major/*/*.a
 %exclude %{_libdir}/directfb-%{api}-%major/*/*/*.a
+%exclude %{_libdir}/directfb-%{api}-%major/*/*.o
+%exclude %{_libdir}/directfb-%{api}-%major/*/*/*.o
 %{_libdir}/directfb-%{api}-%major
 %{_datadir}/directfb-%{version}
 
@@ -161,6 +163,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 %{_libdir}/directfb-%{api}-%major/*/*.a
 %{_libdir}/directfb-%{api}-%major/*/*/*.a
+%{_libdir}/directfb-%{api}-%major/*/*.o
+%{_libdir}/directfb-%{api}-%major/*/*/*.o
 
 %files doc
 %defattr(644,root,root,755)
