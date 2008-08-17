@@ -90,6 +90,7 @@ DirectFB documentation and examples.
 %patch1 -p1 -b .ar
 %patch2 -p1
 %patch3 -p1
+%patch5 -p1 -b .reopen
 
 %build
 autoreconf -ifs
