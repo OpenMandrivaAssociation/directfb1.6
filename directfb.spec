@@ -17,7 +17,7 @@ Summary:	Hardware graphics acceleration library
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-License:	GPL
+License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.gz
 # from Debian
@@ -29,6 +29,7 @@ Patch2:		DirectFB-1.0.1-underlink.patch
 Patch3:		DirectFB-1.0.1-sincos-x86_64.patch
 # try to reopen console devices when needed, for example by splashy which changes root
 # (from Debian package, Debian #462626)
+# it breaks directfb, see debian bug #493899
 Patch5:		92_reopen_console.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libvncserver-devel
@@ -90,7 +91,7 @@ DirectFB documentation and examples.
 %patch1 -p1 -b .ar
 %patch2 -p1
 %patch3 -p1
-%patch5 -p1 -b .reopen
+#patch5 -p1 -b .reopen
 
 %build
 autoreconf -ifs
