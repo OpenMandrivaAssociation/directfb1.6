@@ -1,10 +1,10 @@
 %define	name	directfb
-%define version 1.1.1
-%define release %mkrel 4
+%define version 1.2.2
+%define release %mkrel 1
 %define	oname	DirectFB
-%define api	1.1
+%define api	1.2
 %define	major	0
-%define	libname	%mklibname %{name} %{api}_%{major}
+%define	libname	%mklibname %{name} %{api} %{major}
 %define develname %mklibname %name -d
 
 # Multiple applications support
@@ -27,8 +27,6 @@ Patch2:		DirectFB-1.0.1-underlink.patch
 # Explicitly link with -lm. Was failing only on x86_64, but not on i586,
 # apparently because -O3 was generating code to bypass libm on i586.
 Patch3:		DirectFB-1.0.1-sincos-x86_64.patch
-# from git
-Patch4:		DirectFB-1.1.1-vnc-build.patch
 # try to reopen console devices when needed, for example by splashy which changes root
 # (from Debian package, Debian #462626)
 Patch5:		92_reopen_console.patch
@@ -92,15 +90,9 @@ DirectFB documentation and examples.
 %patch1 -p1 -b .ar
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1 -b .vnc
-%patch5 -p1 -b .reopen
-
-perl -p -i -e 's@-L/usr/X11R6/lib@@;s@-I/usr/X11R6/include@@' \
-    configure.in directfb-config.in
-
-autoreconf -ifs
 
 %build
+autoreconf -ifs
 CFLAGS="$RPM_OPT_FLAGS -O3" \
 %configure2_5x \
 	--disable-maintainer-mode \
