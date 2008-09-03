@@ -101,7 +101,6 @@ CFLAGS="$RPM_OPT_FLAGS -O3" \
 	--enable-shared \
 	--enable-static \
 	--disable-fast-install \
-	--disable-avifile \
 	--disable-debug \
 	--with-gfxdrivers=ati128,cle266,cyber5k,i810,i830,mach64,neomagic,nsc,nvidia,radeon,savage,sis315,tdfx,unichrome \
 %if %build_multi
