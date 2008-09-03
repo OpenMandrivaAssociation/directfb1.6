@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.2.3
-%define release %mkrel 1
+%define release %mkrel 2
 %define	oname	DirectFB
 %define api	1.2
 %define	major	0
@@ -27,6 +27,10 @@ Patch2:		DirectFB-1.0.1-underlink.patch
 # Explicitly link with -lm. Was failing only on x86_64, but not on i586,
 # apparently because -O3 was generating code to bypass libm on i586.
 Patch3:		DirectFB-1.0.1-sincos-x86_64.patch
+# remove common linkage of x11 system and x11 input driver
+# it makes directfb segfault
+# (this is a workaround, not a proper upstreamable fix)
+Patch4:		DirectFB-1.2.3-x11-linkage.patch
 # try to reopen console devices when needed, for example by splashy which changes root
 # (from Debian package, Debian #462626)
 # it breaks directfb, see debian bug #493899
@@ -91,6 +95,7 @@ DirectFB documentation and examples.
 %patch1 -p1 -b .ar
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1 -R -b .x11-linkage
 #patch5 -p1 -b .reopen
 
 %build
