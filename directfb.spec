@@ -31,10 +31,11 @@ Patch3:		DirectFB-1.0.1-sincos-x86_64.patch
 # it makes directfb segfault
 # (this is a workaround, not a proper upstreamable fix)
 Patch4:		DirectFB-1.2.3-x11-linkage.patch
-# try to reopen console devices when needed, for example by splashy which changes root
-# (from Debian package, Debian #462626)
-# it breaks directfb, see debian bug #493899
-Patch5:		92_reopen_console.patch
+# try to reopen console devices when needed
+# (for example with splashy after init steals control of consoles)
+# reworked from Debian patch, Debian #462626
+# might break other directfb apps, Debian #493899
+Patch5:		DirectFB-1.2.3-reopen_vt.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libvncserver-devel
 BuildRequires:	libpng-devel >= 1.2.0
