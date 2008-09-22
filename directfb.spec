@@ -97,7 +97,7 @@ DirectFB documentation and examples.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1 -R -b .x11-linkage
-#patch5 -p1 -b .reopen
+%patch5 -p1 -b .reopen
 
 %build
 autoreconf -ifs
