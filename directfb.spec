@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.2.3
-%define release %mkrel 2
+%define release %mkrel 3
 %define	oname	DirectFB
 %define api	1.2
 %define	major	0
@@ -36,6 +36,8 @@ Patch4:		DirectFB-1.2.3-x11-linkage.patch
 # reworked from Debian patch, Debian #462626
 # might break other directfb apps, Debian #493899
 Patch5:		DirectFB-1.2.3-reopen_vt.patch
+# from Debian #401296, 93_fix_unicode_key_handling.patch
+Patch6:		DirectFB-1.2.3-unicode.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libvncserver-devel
 BuildRequires:	libpng-devel >= 1.2.0
@@ -98,6 +100,7 @@ DirectFB documentation and examples.
 %patch3 -p1
 %patch4 -p1 -R -b .x11-linkage
 %patch5 -p1 -b .reopen
+%patch6 -p1 -b .unicode
 
 %build
 autoreconf -ifs
