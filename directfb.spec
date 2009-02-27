@@ -44,7 +44,6 @@ BuildRequires:	libpng-devel >= 1.2.0
 BuildRequires:	libjpeg-devel >= 6b
 BuildRequires:	freetype2-devel >= 2.0.2
 BuildRequires:	libsysfs2-devel
-BuildRequires:  kernel-source
 BuildRequires:	SDL-devel
 %if %{build_multi}
 BuildRequires:	fusion-devel >= 3.0
