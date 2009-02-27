@@ -100,10 +100,9 @@ DirectFB documentation and examples.
 %patch5 -p1 -b .reopen
 %patch6 -p1 -b .unicode
 %patch7 -p1
+autoreconf -ifs
 
 %build
-autoreconf -ifs
-CFLAGS="$RPM_OPT_FLAGS -O3" \
 %configure2_5x \
 	--disable-maintainer-mode \
 	--enable-shared \
