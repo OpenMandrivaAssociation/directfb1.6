@@ -1,5 +1,5 @@
 %define	name	directfb
-%define version 1.2.6
+%define version 1.2.7
 %define release %mkrel 1
 %define	oname	DirectFB
 %define api	1.2
@@ -22,22 +22,22 @@ Group:		System/Libraries
 Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.gz
 # from Debian
 Patch0:		03_link_static_sysfs.patch
-Patch1:		08_link_static_ar.patch
-Patch2:		DirectFB-1.0.1-underlink.patch
+Patch1:		DirectFB-1.2.7-link-static-ar.patch
 # Explicitly link with -lm. Was failing only on x86_64, but not on i586,
 # apparently because -O3 was generating code to bypass libm on i586.
-Patch3:		DirectFB-1.0.1-sincos-x86_64.patch
+Patch3:		DirectFB-1.2.7-sincos-x86_64.patch
 # remove common linkage of x11 system and x11 input driver
 # it makes directfb segfault
 # (this is a workaround, not a proper upstreamable fix)
-Patch4:		DirectFB-1.2.3-x11-linkage.patch
+Patch4:		DirectFB-1.2.7-x11-linkage.patch
 # try to reopen console devices when needed
 # (for example with splashy after init steals control of consoles)
 # reworked from Debian patch, Debian #462626
 # might break other directfb apps, Debian #493899
-Patch5:		DirectFB-1.2.3-reopen_vt.patch
+Patch5:		DirectFB-1.2.7-reopen_vt.patch
 # from Debian #401296, 93_fix_unicode_key_handling.patch
 Patch6:		DirectFB-1.2.3-unicode.patch
+Patch7:		DirectFB-1.2.7-fix-format-strings.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libvncserver-devel
 BuildRequires:	libpng-devel >= 1.2.0
@@ -95,12 +95,12 @@ DirectFB documentation and examples.
 %prep
 %setup  -q -n %{oname}-%{version}
 %patch0 -p1 -b .sysfs
-%patch1 -p1 -b .ar
-%patch2 -p1
+%patch1 -p1 -b .link-static-ar
 %patch3 -p1
-%patch4 -p1 -R -b .x11-linkage
+%patch4 -p1 -b .x11-linkage
 %patch5 -p1 -b .reopen
 %patch6 -p1 -b .unicode
+%patch7 -p1
 
 %build
 autoreconf -ifs
