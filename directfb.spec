@@ -1,6 +1,6 @@
 %define	name	directfb
-%define version 1.2.7
-%define release %mkrel 2
+%define version 1.2.8
+%define release %mkrel 1
 %define	oname	DirectFB
 %define api	1.2
 %define	major	0
