@@ -1,6 +1,6 @@
 %define	name	directfb
-%define version 1.2.8
-%define release %mkrel 4
+%define version 1.2.9
+%define release %mkrel 1
 %define	oname	DirectFB
 %define api	1.2
 %define	major	0
@@ -42,7 +42,6 @@ Patch5:		DirectFB-1.2.7-reopen_vt.patch
 # from Debian #401296, 93_fix_unicode_key_handling.patch
 Patch6:		DirectFB-1.2.3-unicode.patch
 Patch7:		DirectFB-1.2.7-fix-format-strings.patch
-Patch8:		DirectFB-1.2.7-input_close_race.patch
 Patch9:		DirectFB-1.2.8-wrong-ldflags.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libvncserver-devel
@@ -108,7 +107,6 @@ DirectFB documentation and examples.
 %patch5 -p1 -b .reopen
 %patch6 -p1 -b .unicode
 %patch7 -p1
-%patch8 -p1 -b .input_close_race
 %patch9 -p0 -b .linkage
 autoreconf -ifs
 
