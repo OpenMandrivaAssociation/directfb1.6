@@ -157,7 +157,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %develname
 %defattr(755,root,root,755)
-%{_bindir}/*
+%{_bindir}/dfb*
+%{_bindir}/directfb*
+%{_bindir}/mkd*
 %multiarch %{multiarch_bindir}/directfb-config
 %defattr(644,root,root,755)
 %{_includedir}/directfb
