@@ -109,7 +109,7 @@ DirectFB documentation and examples.
 %patch6 -p1 -b .unicode
 %patch7 -p1
 %patch9 -p0 -b .linkage
-%patch10 -p1 -b .libpng14
+#patch10 -p1 -b .libpng14
 autoreconf -if
 
 %build
