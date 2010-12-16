@@ -1,9 +1,9 @@
 %define	name	directfb
-%define version 1.4.3
-%define release %mkrel 3
+%define version 1.4.11
+%define release %mkrel 1
 %define	oname	DirectFB
 %define api	1.4
-%define	major	0
+%define	major	5
 %define	libname	%mklibname %{name} %{api} %{major}
 %define develname %mklibname %name -d
 
@@ -41,7 +41,6 @@ Patch4:		DirectFB-1.4.2-x11-linkage.patch
 Patch5:		DirectFB-1.2.7-reopen_vt.patch
 # from Debian #401296, 93_fix_unicode_key_handling.patch
 Patch6:		DirectFB-1.4.2-unicode.patch
-Patch7:		DirectFB-1.2.7-fix-format-strings.patch
 Patch9:		DirectFB-1.4.2-wrong-ldflags.patch
 Patch10:	DirectFB-1.4.3-libpng-1.4.patch
 URL:		http://www.directfb.org/
@@ -107,7 +106,6 @@ DirectFB documentation and examples.
 %patch4 -p1 -b .x11-linkage
 #patch5 -p1 -b .reopen
 %patch6 -p1 -b .unicode
-%patch7 -p1
 %patch9 -p0 -b .linkage
 #patch10 -p1 -b .libpng14
 autoreconf -if
