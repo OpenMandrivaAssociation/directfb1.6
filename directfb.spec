@@ -7,10 +7,6 @@
 %define	libname	%mklibname %{name} %{api} %{major}
 %define develname %mklibname %name -d
 
-%define bootstrap 0
-%{?_with_bootstrap: %global bootstrap 1}
-%{?_without_bootstrap: %global bootstrap 0}
-
 # Multiple applications support
 # Requires fusion kernel module
 %define build_multi	0
@@ -48,10 +44,9 @@ BuildRequires:	libvncserver-devel
 BuildRequires:	libpng-devel >= 1.2.0
 BuildRequires:	libjpeg-devel >= 6b
 BuildRequires:	freetype2-devel >= 2.0.2
+BuildRequires:	libx11-devel
+BuildRequires:	libxext-devel
 BuildRequires:	libsysfs2-devel
-%if !%bootstrap
-BuildRequires:	SDL-devel
-%endif
 %if %{build_multi}
 BuildRequires:	fusion-devel >= 3.0
 %endif
