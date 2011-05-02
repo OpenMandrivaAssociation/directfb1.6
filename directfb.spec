@@ -1,6 +1,6 @@
 %define	name	directfb
 %define version 1.4.12
-%define release %mkrel 1
+%define release %mkrel 2
 %define	oname	DirectFB
 %define api	1.4
 %define	major	5
@@ -155,7 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/dfb*
 %{_bindir}/directfb*
 %{_bindir}/mkd*
-%multiarch %{multiarch_bindir}/directfb-config
+%{multiarch_bindir}/directfb-config
 %defattr(644,root,root,755)
 %{_includedir}/directfb
 %{_includedir}/directfb-internal
