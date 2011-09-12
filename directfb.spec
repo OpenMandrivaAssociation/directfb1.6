@@ -39,6 +39,8 @@ Patch5:		DirectFB-1.2.7-reopen_vt.patch
 Patch6:		DirectFB-1.4.2-unicode.patch
 Patch9:		DirectFB-1.4.2-wrong-ldflags.patch
 Patch10:	DirectFB-1.4.3-libpng-1.4.patch
+# (tpg) add support for libpng-1.5 patch comes from gentoo
+Patch11:	DirectFB-1.4.9-libpng-1.5.patch
 URL:		http://www.directfb.org/
 BuildRequires:	libvncserver-devel
 BuildRequires:	libpng-devel >= 1.2.0
@@ -103,6 +105,7 @@ DirectFB documentation and examples.
 %patch6 -p1 -b .unicode
 %patch9 -p0 -b .linkage
 #patch10 -p1 -b .libpng14
+%patch11 -p1 -b .libpng15
 autoreconf -if
 
 %build
