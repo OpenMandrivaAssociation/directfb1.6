@@ -125,14 +125,14 @@ autoreconf -if
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 
 # multiarch policy
-%multiarch_binaries $RPM_BUILD_ROOT%{_bindir}/directfb-config
+%multiarch_binaries %{buildroot}%{_bindir}/directfb-config
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
