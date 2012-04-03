@@ -3,7 +3,7 @@
 %define release %mkrel 3
 %define	oname	DirectFB
 %define api	1.4
-%define	major	5
+%define	major	6
 %define	libname	%mklibname %{name} %{api} %{major}
 %define develname %mklibname %name -d
 
@@ -166,9 +166,8 @@ rm -rf %{buildroot}
 %{_mandir}/man1/dfbg.1*
 %{_mandir}/man5/directfbrc.5*
 %{_libdir}/pkgconfig/*
-%attr(644,root,root) %{_libdir}/*.la
 %{_libdir}/*.so
-%{_libdir}/*.a
+%{_libdir}/*.*a
 %{_libdir}/directfb-%{api}-%major/*/*.a
 %{_libdir}/directfb-%{api}-%major/*/*/*.a
 %{_libdir}/directfb-%{api}-%major/*/*.o
