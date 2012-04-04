@@ -1,9 +1,7 @@
 %define	name	directfb
-%define version 1.4.13
-%define release %mkrel 3
 %define	oname	DirectFB
 %define api	1.4
-%define	major	6
+%define	major	5
 %define	libname	%mklibname %{name} %{api} %{major}
 %define develname %mklibname %name -d
 
@@ -15,8 +13,8 @@
 
 Summary:	Hardware graphics acceleration library
 Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Version:	1.4.13
+Release:	%mkrel 4
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.gz
