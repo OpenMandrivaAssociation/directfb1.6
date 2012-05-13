@@ -46,7 +46,7 @@ BuildRequires:	freetype2-devel >= 2.0.2
 BuildRequires:	libx11-devel
 BuildRequires:	libxext-devel
 BuildRequires:	libsysfs2-devel
-BuildRequires:	libvdpau-devel
+BuildRequires:	vdpau-devel
 BuildRequires:	libv4l-devel
 BuildRequires:	zlib-devel
 %if %{build_multi}
