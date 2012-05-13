@@ -14,7 +14,7 @@
 Summary:	Hardware graphics acceleration library
 Name:		%{name}
 Version:	1.5.3
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.directfb.org/
