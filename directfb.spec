@@ -47,6 +47,8 @@ BuildRequires:	libx11-devel
 BuildRequires:	libxext-devel
 BuildRequires:	libsysfs2-devel
 BuildRequires:	libvdpau-devel
+BuildRequires:	libv4l-devel
+BuildRequires:	zlib-devel
 %if %{build_multi}
 BuildRequires:	fusion-devel >= 3.0
 %endif
@@ -110,6 +112,8 @@ autoreconf -if
 	--disable-static \
 	--disable-fast-install \
 	--disable-debug \
+	--enable-video4linux2 \
+	--enable-zlib \
 %if %build_multi
 	--enable-multi
 %else
