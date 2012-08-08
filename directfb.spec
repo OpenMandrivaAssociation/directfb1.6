@@ -1,9 +1,8 @@
-%define	name	directfb
-%define	oname	DirectFB
-%define api	1.5
-%define	major	0
-%define	libname	%mklibname %{name} %{api} %{major}
-%define develname %mklibname %name -d
+%define oname	DirectFB
+%define api	1.6
+%define major	0
+%define libname	%mklibname %{name} %{api} %{major}
+%define develname %mklibname %{name} -d
 
 # Multiple applications support
 # Requires fusion kernel module
@@ -12,16 +11,16 @@
 %{?_with_multi: %{expand: %%global build_multi 1}}
 
 Summary:	Hardware graphics acceleration library
-Name:		%{name}
-Version:	1.5.3
-Release:	2
+Name:		directfb
+Version:	1.6.1
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.directfb.org/
 Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{version}.tar.gz
 # from Debian
 Patch0:		03_link_static_sysfs.patch
-Patch1:		DirectFB-1.2.7-link-static-ar.patch
+Patch1:		DirectFB-1.6.1-link-static-ar.patch
 # Explicitly link with -lm. Was failing only on x86_64, but not on i586,
 # apparently because -O3 was generating code to bypass libm on i586.
 Patch3:		DirectFB-1.2.7-sincos-x86_64.patch
@@ -29,32 +28,27 @@ Patch3:		DirectFB-1.2.7-sincos-x86_64.patch
 # it makes directfb segfault
 # (this is a workaround, not a proper upstreamable fix)
 Patch4:		DirectFB-1.4.2-x11-linkage.patch
-# try to reopen console devices when needed
-# (for example with splashy after init steals control of consoles)
-# reworked from Debian patch, Debian #462626
-# might break other directfb apps, Debian #493899
-Patch5:		DirectFB-1.2.7-reopen_vt.patch
 # from Debian #401296, 93_fix_unicode_key_handling.patch
 Patch6:		DirectFB-1.4.2-unicode.patch
-# (tpg) add support for libpng-1.5 patch comes from gentoo
-Patch11:	DirectFB-1.4.9-libpng-1.5.patch
-Patch12:	DirectFB-1.5.1-str-fmt.patch
+Patch7:		DirectFB-1.6.1-svg-includedir.patch
+Patch8:		DirectFB-1.6.1-zlib.patch
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(libsvg-cairo)
+BuildRequires:	pkgconfig(vdpau)
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xext)
 BuildRequires:	libvncserver-devel
-BuildRequires:	libpng-devel >= 1.2.0
-BuildRequires:	libjpeg-devel >= 6b
-BuildRequires:	freetype2-devel >= 2.0.2
-BuildRequires:	libx11-devel
-BuildRequires:	libxext-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	pkgconfig(jasper)
 BuildRequires:	libsysfs2-devel
-BuildRequires:	vdpau-devel
-BuildRequires:	libv4l-devel
 BuildRequires:	zlib-devel
 %if %{build_multi}
 BuildRequires:	fusion-devel >= 3.0
 %endif
 # prevent linking devel subpackage with older libraries:
 # (blino) please uncomment when major is changed
-BuildConflicts: directfb-devel
+BuildConflicts:	directfb-devel
 
 %description
 DirectFB hardware graphics acceleration - libraries.
@@ -63,7 +57,7 @@ DirectFB hardware graphics acceleration - libraries.
 Summary:	Shared library part of %{oname}
 Group:		System/Libraries
 
-%description -n	%{libname}
+%description -n %{libname}
 DirectFB hardware graphics acceleration - libraries.
 
 This package contains the %{oname} shared library and interface modules.
@@ -75,15 +69,10 @@ Group:		Development/C
 Summary:	Header files for compiling DirectFB applications
 Requires:	%{libname} = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
-Provides:	%{oname}-devel = %{version}-%{release} %{name}-devel = %{version}-%{release}
-Provides:	libdirectfb0.9-devel = %{version}-%{release}
-Conflicts:	%mklibname -d directfb 0.9_20
-Conflicts:	%mklibname -d directfb 0.9_21
-Conflicts:	%mklibname -d directfb 0.9_25
-Conflicts:	%mklibname -d directfb 1.0_0
-Conflicts:	%mklibname -d directfb 1.4_5
+Provides:	%{oname}-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n	%{develname}
+%description -n %{develname}
 DirectFB header files for building applications based on %{oname}.
 
 %package doc
@@ -99,10 +88,9 @@ DirectFB documentation and examples.
 %patch1 -p1 -b .link-static-ar
 %patch3 -p1
 %patch4 -p1 -b .x11-linkage
-#patch5 -p1 -b .reopen
 %patch6 -p1 -b .unicode
-%patch11 -p1 -b .libpng15
-%patch12 -p0 -b .strfmt
+%patch7 -p0 -b .svgdir
+%patch8 -p1 -b .zlib
 autoreconf -if
 
 %build
@@ -112,8 +100,11 @@ autoreconf -if
 	--disable-static \
 	--disable-fast-install \
 	--disable-debug \
-	--enable-video4linux2 \
 	--enable-zlib \
+%ifarch %{ix86}
+	--disable-mmx \
+	--disable-sse \
+%endif
 %if %build_multi
 	--enable-multi
 %else
@@ -137,7 +128,6 @@ autoreconf -if
 %{_bindir}/dfb*
 %{_bindir}/directfb*
 %{_bindir}/mkd*
-%{_bindir}/fluxcomp
 %{_bindir}/pxa3xx_dump
 %{multiarch_bindir}/directfb-config
 %{_includedir}/directfb
@@ -151,3 +141,4 @@ autoreconf -if
 %files doc
 %doc docs/html/*
 %doc README* AUTHORS NEWS TODO
+
