@@ -1,0 +1,88 @@
+--- DirectFB-1.6.1/directfb-config.in.orig	2012-07-28 08:52:39.000000000 +0000
++++ DirectFB-1.6.1/directfb-config.in	2012-07-28 08:53:27.000000000 +0000
+@@ -86,7 +86,7 @@
+       fi
+         
+       for i in `echo $optarg | sed 's/,/ /g'`; do
+-        echo_input="$echo_input $moduledir/inputdrivers/libdirectfb_$i.o"
++        echo_input="$echo_input $moduledir/inputdrivers/libdirectfb_$i.a"
+       done
+ 
+       echo_static=yes
+@@ -97,7 +97,7 @@
+       fi
+         
+       for i in `echo $optarg | sed 's/,/ /g'`; do
+-        echo_graphics="$echo_graphics $moduledir/gfxdrivers/libdirectfb_$i.o"
++        echo_graphics="$echo_graphics $moduledir/gfxdrivers/libdirectfb_$i.a"
+         case $i in
+           matrox)
+             echo_graphics="$echo_graphics @SYSFS_LIBS@"
+@@ -113,7 +113,7 @@
+       fi
+         
+       for i in `echo $optarg | sed 's/,/ /g'`; do
+-        echo_font="$echo_font $moduledir/interfaces/IDirectFBFont/libidirectfbfont_$i.o"
++        echo_font="$echo_font $moduledir/interfaces/IDirectFBFont/libidirectfbfont_$i.a"
+         case $i in
+           ft2)
+             echo_font="$echo_font -lfreetype"
+@@ -129,7 +129,7 @@
+       fi
+         
+       for i in `echo $optarg | sed 's/,/ /g'`; do
+-        echo_system="$echo_system $moduledir/systems/libdirectfb_$i.o"
++        echo_system="$echo_system $moduledir/systems/libdirectfb_$i.a"
+         case $i in
+           sdl)
+             echo_system="$echo_system @SDL_LIBS@"
+@@ -145,7 +145,7 @@
+       fi
+         
+       for i in `echo $optarg | sed 's/,/ /g'`; do
+-        echo_wm="$echo_wm $moduledir/wm/libidirectfb_$i.o"
++        echo_wm="$echo_wm $moduledir/wm/libidirectfb_$i.a"
+         case $i in
+           unique)
+             echo_wm="$echo_wm -luniquewm"
+@@ -161,7 +161,7 @@
+       fi
+         
+       for i in `echo $optarg | sed 's/,/ /g'`; do
+-        echo_imageprovider="$echo_imageprovider $moduledir/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_$i.o"
++        echo_imageprovider="$echo_imageprovider $moduledir/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_$i.a"
+         case $i in
+           imlib2)
+             echo_imageprovider="$echo_imageprovider -lImlib2 -lttf -lm -lXext -lX11"
+@@ -185,7 +185,7 @@
+       fi
+         
+       for i in `echo $optarg | sed 's/,/ /g'`; do
+-        echo_videoprovider="$echo_videoprovider $moduledir/interfaces/IDirectFBVideoProvider/libidirectfbvideoprovider_$i.o"
++        echo_videoprovider="$echo_videoprovider $moduledir/interfaces/IDirectFBVideoProvider/libidirectfbvideoprovider_$i.a"
+         case $i in
+           libmpeg3)
+             echo_videoprovider="$echo_videoprovider -lmpeg3"
+@@ -235,11 +235,11 @@
+ 	echo -static
+ 
+ 	if test -z "$echo_system"; then
+-		echo $moduledir/systems/libdirectfb_fbdev.o
++		echo $moduledir/systems/libdirectfb_fbdev.a
+ 	fi
+ 
+ 	if test -z "$echo_wm"; then
+-		echo $moduledir/wm/libdirectfbwm_default.o
++		echo $moduledir/wm/libdirectfbwm_default.a
+ 	fi
+ fi
+ 
+@@ -280,7 +280,7 @@
+ 
+ print_voodoo ()
+ {
+-	echo $moduledir/interfaces/$1/lib$2_dispatcher.o $moduledir/interfaces/$1/lib$2_requestor.o
++	echo $moduledir/interfaces/$1/lib$2_dispatcher.a $moduledir/interfaces/$1/lib$2_requestor.a
+ }
+ 
+ if test -n "$echo_voodoo"; then

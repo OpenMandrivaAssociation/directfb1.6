@@ -1,0 +1,12 @@
+diff -p -up DirectFB-1.2.7/gfxdrivers/cle266/Makefile.am~ DirectFB-1.2.7/gfxdrivers/cle266/Makefile.am
+--- DirectFB-1.2.7/gfxdrivers/cle266/Makefile.am~	2009-02-27 10:09:30.000000000 +0100
++++ DirectFB-1.2.7/gfxdrivers/cle266/Makefile.am	2009-02-27 10:10:11.000000000 +0100
+@@ -40,7 +40,7 @@ libdirectfb_cle266_la_LIBADD = \
+ 	-lm \
+ 	$(top_builddir)/lib/direct/libdirect.la \
+ 	$(top_builddir)/lib/fusion/libfusion.la \
+-	$(top_builddir)/src/libdirectfb.la
++	$(top_builddir)/src/libdirectfb.la -lm
+ 
+ 
+ include $(top_srcdir)/rules/libobject.make

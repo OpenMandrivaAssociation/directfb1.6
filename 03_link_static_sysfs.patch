@@ -1,0 +1,15 @@
+diff -p -up DirectFB-1.1.1/directfb-config.in.orig DirectFB-1.1.1/directfb-config.in
+--- DirectFB-1.1.1/directfb-config.in.orig	2008-05-27 18:44:31.000000000 -0300
++++ DirectFB-1.1.1/directfb-config.in	2008-05-27 18:44:44.000000000 -0300
+@@ -98,6 +98,11 @@ while test $# -gt 0; do
+         
+       for i in `echo $optarg | sed 's/,/ /g'`; do
+         echo_graphics="$echo_graphics $moduledir/gfxdrivers/libdirectfb_$i.o"
++        case $i in
++          matrox)
++            echo_graphics="$echo_graphics @SYSFS_LIBS@"
++            ;;
++        esac
+       done
+ 
+       echo_static=yes

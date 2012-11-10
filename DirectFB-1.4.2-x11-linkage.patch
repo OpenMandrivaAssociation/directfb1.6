@@ -1,0 +1,46 @@
+--- DirectFB-1.4.2/systems/x11/Makefile.am.x11-linkage	2009-06-03 17:23:21.000000000 +0200
++++ DirectFB-1.4.2/systems/x11/Makefile.am	2009-11-08 11:53:27.000000000 +0100
+@@ -18,6 +18,15 @@
+ 
+ systems_LTLIBRARIES = libdirectfb_x11.la
+ 
++inputdriversdir = $(MODULEDIR)/inputdrivers
++
++if BUILD_STATIC
++inputdrivers_DATA = libdirectfb_x11input.o
++endif
++
++inputdrivers_LTLIBRARIES = libdirectfb_x11input.la
++
++
+ libdirectfb_x11_la_LDFLAGS = \
+ 	$(X11_LIBS)	\
+ 	-avoid-version	\
+@@ -38,7 +47,6 @@
+ 	x11.h			\
+ 	x11image.c		\
+ 	x11image.h		\
+-	x11input.c		\
+ 	x11_surface_pool.c	\
+ 	x11_surface_pool.h	\
+ 	x11types.h		\
+@@ -58,6 +66,19 @@
+ 	$(top_builddir)/lib/fusion/libfusion.la \
+ 	$(top_builddir)/src/libdirectfb.la
+ 
++libdirectfb_x11input_la_LDFLAGS = \
++	$(X11_LIBS)	\
++	-avoid-version	\
++	-module
++
++libdirectfb_x11input_la_SOURCES = \
++	x11input.c
++
++libdirectfb_x11input_la_LIBADD = \
++	$(top_builddir)/lib/direct/libdirect.la \
++	$(top_builddir)/lib/fusion/libfusion.la \
++	$(top_builddir)/src/libdirectfb.la
++
+ 
+ include $(top_srcdir)/rules/libobject.make
+ 
