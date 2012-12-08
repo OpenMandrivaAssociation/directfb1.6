@@ -1,0 +1,64 @@
+From 9f64790ab485edbcfa9c634498dc60d14969a5f5 Mon Sep 17 00:00:00 2001
+From: Olivier Blin <dev@blino.org>
+Date: Sat, 28 Jul 2012 15:56:38 +0200
+Subject: [PATCH] Mesa: adapt to upstream gbm API change
+
+gbm_bo_get_pitch() is now gbm_bo_get_stride().
+See upstream commit 7250cd506baa0bd4649b30d87509cdd0cbc06a57
+
+Also rename the struct member to be consistent with upstream.
+---
+ systems/mesa/mesa_surface_pool.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/systems/mesa/mesa_surface_pool.c b/systems/mesa/mesa_surface_pool.c
+index 0a588bb..c54511f 100644
+--- a/systems/mesa/mesa_surface_pool.c
++++ b/systems/mesa/mesa_surface_pool.c
+@@ -60,7 +60,7 @@ typedef struct {
+ typedef struct {
+      int   magic;
+ 
+-     int   pitch;
++     int   stride;
+      int   size;
+ 
+      EGLImageKHR     image;
+@@ -297,13 +297,13 @@ mesaAllocateBuffer( CoreSurfacePool       *pool,
+      alloc->bo = gbm_bo_create( mesa->gbm, surface->config.size.w, surface->config.size.h, GBM_BO_FORMAT_ARGB8888,
+                                                                             GBM_BO_USE_SCANOUT | GBM_BO_USE_RENDERING );
+      alloc->handle = gbm_bo_get_handle( alloc->bo ).u32;
+-     alloc->pitch  = gbm_bo_get_pitch( alloc->bo );
++     alloc->stride = gbm_bo_get_stride( alloc->bo );
+ 
+      alloc->image  = eglCreateImageKHR( mesa->dpy, NULL, EGL_NATIVE_PIXMAP_KHR, alloc->bo, NULL );
+ 
+-     alloc->size = alloc->pitch * surface->config.size.h;
++     alloc->size = alloc->stride * surface->config.size.h;
+ 
+-     D_DEBUG_AT( Mesa_Surfaces, "  -> pitch %d, size %d\n", alloc->pitch, alloc->size );
++     D_DEBUG_AT( Mesa_Surfaces, "  -> stride %d, size %d\n", alloc->stride, alloc->size );
+ 
+      allocation->size = alloc->size;
+ 
+@@ -360,7 +360,7 @@ mesaAllocateBuffer( CoreSurfacePool       *pool,
+       */
+      ret = drmModeAddFB( local->mesa->fd,
+                          surface->config.size.w, surface->config.size.h,
+-                         24, 32, alloc->pitch, alloc->handle, &alloc->fb_id );
++                         24, 32, alloc->stride, alloc->handle, &alloc->fb_id );
+      if (ret) {
+           D_ERROR( "DirectFB/Mesa: drmModeAddFB() failed!\n" );
+ //          return DFB_FAILURE;
+@@ -423,7 +423,7 @@ mesaLock( CoreSurfacePool       *pool,
+      mesa = local->mesa;
+      D_ASSERT( mesa != NULL );
+ 
+-     lock->pitch  = alloc->pitch;
++     lock->pitch  = alloc->stride;
+      lock->offset = 0;
+      lock->addr   = NULL;
+      lock->phys   = 0;
+-- 
+1.7.11.3
+
