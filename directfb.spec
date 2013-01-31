@@ -1,6 +1,3 @@
-%define	name	directfb
-%define version 1.6.2
-%define release 3
 %define	oname	DirectFB
 %define api	1.6
 %define major	0
@@ -14,9 +11,9 @@
 %{?_with_multi: %{expand: %%global build_multi 1}}
 
 Summary:	Hardware graphics acceleration library
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		directfb
+Version:	1.6.3
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.directfb.org/
@@ -31,8 +28,6 @@ Patch3:		DirectFB-1.2.7-sincos-x86_64.patch
 # it makes directfb segfault
 # (this is a workaround, not a proper upstreamable fix)
 Patch4:		DirectFB-1.4.2-x11-linkage.patch
-# (blino) fix build with gbm from latest Mesa (8.1)
-Patch5:		0001-Mesa-adapt-to-upstream-gbm-API-change.patch
 # from Debian #401296, 93_fix_unicode_key_handling.patch
 Patch6:		DirectFB-1.4.2-unicode.patch
 Patch7:		DirectFB-1.6.1-svg-includedir.patch
@@ -96,7 +91,6 @@ DirectFB documentation and examples.
 %patch1 -p1 -b .link-static-ar
 %patch3 -p1
 %patch4 -p1 -b .x11-linkage
-%patch5 -p1 -b .gbm
 %patch6 -p1 -b .unicode
 %patch7 -p0 -b .svgdir
 %patch8 -p1 -b .zlib

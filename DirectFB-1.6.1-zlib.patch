@@ -1,7 +1,6 @@
-diff -urN DirectFB-1.6.1/src/core/surface.c DirectFB-1.6.1-patched/src/core/surface.c
---- DirectFB-1.6.1/src/core/surface.c	2012-06-30 03:01:11.000000000 +1100
-+++ DirectFB-1.6.1-patched/src/core/surface.c	2012-08-08 18:35:58.496352083 +1100
-@@ -49,6 +49,9 @@
+--- DirectFB-1.6.3/src/core/surface.c.zlib	2013-01-31 15:45:05.673318987 +0100
++++ DirectFB-1.6.3/src/core/surface.c	2013-01-31 15:45:38.773915790 +0100
+@@ -55,6 +55,9 @@
  #include <gfx/convert.h>
  #include <gfx/util.h>
  
@@ -9,5 +8,5 @@ diff -urN DirectFB-1.6.1/src/core/surface.c DirectFB-1.6.1-patched/src/core/surf
 +#include <zlib.h>
 +#endif
  
- D_DEBUG_DOMAIN( Core_Surface, "Core/Surface", "DirectFB Core Surface" );
- 
+ D_DEBUG_DOMAIN( Core_Surface,         "Core/Surface",         "DirectFB Core Surface" );
+ D_DEBUG_DOMAIN( Core_Surface_Updates, "Core/Surface/Updates", "DirectFB Core Surface Updates" );
