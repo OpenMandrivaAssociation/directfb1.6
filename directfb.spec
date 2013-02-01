@@ -13,7 +13,7 @@
 Summary:	Hardware graphics acceleration library
 Name:		directfb
 Version:	1.6.3
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.directfb.org/
@@ -94,6 +94,11 @@ DirectFB documentation and examples.
 %patch6 -p1 -b .unicode
 %patch7 -p0 -b .svgdir
 %patch8 -p1 -b .zlib
+
+# Needed for Qt 5 as of Qt 5.0.1:
+sed -i -e '/define __typeof/d' lib/direct/os/linux/glibc/types.h
+find . -name "*.h" |xargs sed -i -e 's,__typeof__,typeof,g'
+
 autoreconf -if
 
 %build
