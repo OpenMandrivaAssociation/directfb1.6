@@ -32,6 +32,8 @@ Patch4:		DirectFB-1.4.2-x11-linkage.patch
 Patch6:		DirectFB-1.4.2-unicode.patch
 Patch7:		DirectFB-1.6.1-svg-includedir.patch
 Patch8:		DirectFB-1.6.1-zlib.patch
+Patch9:		DirectFB-1.5.3-add-missing-davinci-files.patch
+Patch10:	DirectFB-1.6.1-gcc-atomics-on-arm.patch
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(libpng)
@@ -94,6 +96,8 @@ DirectFB documentation and examples.
 %patch6 -p1 -b .unicode
 %patch7 -p0 -b .svgdir
 %patch8 -p1 -b .zlib
+%patch9 -p1 -b .davinci
+%patch10 -p1 -b .atomic
 
 # Needed for Qt 5 as of Qt 5.0.1:
 sed -i -e '/define __typeof/d' lib/direct/os/linux/glibc/types.h

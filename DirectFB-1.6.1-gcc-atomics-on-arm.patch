@@ -1,0 +1,35 @@
+diff -up DirectFB-1.6.1/lib/direct/atomic.h.arm-atomics DirectFB-1.6.1/lib/direct/atomic.h
+--- DirectFB-1.6.1/lib/direct/atomic.h.arm-atomics	2012-06-29 12:01:11.000000000 -0400
++++ DirectFB-1.6.1/lib/direct/atomic.h	2012-08-29 10:18:08.596702883 -0400
+@@ -239,6 +239,31 @@ static inline int _D__atomic_add_return(
+ #define D_SYNC_ADD_AND_FETCH( ptr, value )                                           \
+      (_D__atomic_add_return( (int) (value), (volatile int*) (ptr) ))
+ 
++#elif defined(ARCH_ARM) && !defined(ARCH_IWMMXT)
++
++static inline int _D__atomic_cmpxchg(volatile int *ptr, int old, int _new)
++{
++	unsigned long oldval = old;
++
++	__atomic_compare_exchange_n(ptr, &oldval, _new,
++				    false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
++
++	return oldval;
++}
++
++#define D_SYNC_BOOL_COMPARE_AND_SWAP( ptr, old_value, new_value )                    \
++     (_D__atomic_cmpxchg( (void*) ptr, (int) old_value, (int) new_value ) == (int) old_value)
++
++static inline int _D__atomic_add_return(int i, volatile int *v)
++{
++	int result = __atomic_add_fetch(v, i, __ATOMIC_SEQ_CST);
++
++	return result;
++}
++
++#define D_SYNC_ADD_AND_FETCH( ptr, value )                                           \
++     (_D__atomic_add_return( (int) (value), (volatile int*) (ptr) ))
++
+ #endif
+ 
+ 
