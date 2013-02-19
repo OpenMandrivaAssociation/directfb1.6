@@ -148,9 +148,6 @@ autoreconf -if
 %{_bindir}/mkd*
 %{_bindir}/pxa3xx_dump
 %{multiarch_bindir}/directfb-config
-%ifarch %{arm}
-%{_libdir}/libdavinci_c64x.so
-%endif
 %{_includedir}/directfb
 %{_includedir}/directfb-internal
 %{_mandir}/man1/directfb-csource.1*
