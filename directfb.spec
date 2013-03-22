@@ -50,6 +50,7 @@ BuildRequires:	pkgconfig(gbm)
 BuildRequires:	pkgconfig(glesv2)
 BuildRequires:	pkgconfig(libdrm)
 BuildRequires:	pkgconfig(xproto)
+BuildRequires:	bzip2-devel
 
 %if %{build_multi}
 BuildRequires:	fusion-devel >= 3.0
