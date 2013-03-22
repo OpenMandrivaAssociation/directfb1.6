@@ -123,7 +123,7 @@ autoreconf -if
 	--disable-multi
 %endif
 
-%make
+%make LIBS="-lbz2 -ldl -pthread -lpthread"
 
 %install
 %makeinstall_std
