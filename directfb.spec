@@ -37,7 +37,7 @@ Patch10:	DirectFB-1.6.1-gcc-atomics-on-arm.patch
 
 BuildRequires:	bzip2-devel
 BuildRequires:	jpeg-devel
-BuildRequires:	sysfs-devel
+BuildRequires:	sysfsutils-devel
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(gbm)
