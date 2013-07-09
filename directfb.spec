@@ -34,6 +34,7 @@ Patch7:		DirectFB-1.6.1-svg-includedir.patch
 Patch8:		DirectFB-1.6.1-zlib.patch
 Patch9:		DirectFB-1.5.3-add-missing-davinci-files.patch
 Patch10:	DirectFB-1.6.1-gcc-atomics-on-arm.patch
+Patch11:	DirectFB-1.6.3-atomic-fix-compiler-error-when-building-for-thumb2.patch
 
 BuildRequires:	bzip2-devel
 BuildRequires:	jpeg-devel
@@ -97,6 +98,7 @@ DirectFB documentation and examples.
 %patch8 -p1 -b .zlib
 %patch9 -p1 -b .davinci
 %patch10 -p1 -b .atomic
+%patch11 -p1 -b .thumb
 
 # Needed for Qt 5 as of Qt 5.0.1:
 sed -i -e '/define __typeof/d' lib/direct/os/linux/glibc/types.h
