@@ -1,0 +1,11 @@
+--- DirectFB-1.7.3/interfaces/IDirectFBImageProvider/Makefile.am.svgdir	2014-04-06 20:58:08.213424627 +0200
++++ DirectFB-1.7.3/interfaces/IDirectFBImageProvider/Makefile.am	2014-04-06 21:00:24.444048218 +0200
+@@ -85,7 +85,7 @@ INCLUDES = \
+ 	-I$(top_srcdir)/lib	\
+ 	-I$(top_srcdir)/src
+ 
+-AM_CPPFLAGS = -DDATADIR=\"${RUNTIME_SYSROOT}@DATADIR@\" $(LIBJPEG_CFLAGS) $(LIBPNG_CFLAGS) $(FFMPEG_CFLAGS)
++AM_CPPFLAGS = -DDATADIR=\"${RUNTIME_SYSROOT}@DATADIR@\" $(LIBJPEG_CFLAGS) $(LIBPNG_CFLAGS) $(FFMPEG_CFLAGS) $(SVG_CFLAGS)
+ 
+ idirectfbimageprovider_LTLIBRARIES = \
+ 	libidirectfbimageprovider_dfiff.la	\
