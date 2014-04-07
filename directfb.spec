@@ -1,10 +1,15 @@
 %define	oname	DirectFB
 %define api	1.7
-%define major	3
+%define major	4
 %define libdirectfb	%mklibname %{name} %{api} %{major}
 %define	libdirect	%mklibname direct %{api} %{major}
 %define	libppdfb	%mklibname ++dfb %{api} %{major}
 %define	libfusion	%mklibname fusion %{api} %{major}
+%define	libfusiondale	%mklibname fusiondale %{api} %{major}
+%define	libfusionsound	%mklibname fusionsound %{api} %{major}
+%define	libuniquewm	%mklibname uniquewm %{api} %{major}
+%define	libdivine	%mklibname libdivine %{api} %{major}
+%define	libsawman	%mklibname libsawman %{api} %{major}
 %define	libdavinci	%mklibname davinci %{api} %{major}
 %define devname %mklibname %{name} %{api} -d
 
@@ -16,7 +21,7 @@
 
 Summary:	Hardware graphics acceleration library
 Name:		directfb
-Version:	1.7.3
+Version:	1.7.4
 Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
@@ -39,26 +44,35 @@ Patch8:		DirectFB-1.6.1-zlib.patch
 Patch9:		DirectFB-1.5.3-add-missing-davinci-files.patch
 Patch10:	DirectFB-1.6.1-gcc-atomics-on-arm.patch
 Patch11:	DirectFB-1.6.3-atomic-fix-compiler-error-when-building-for-thumb2.patch
+Patch12:	DirectFB-ffmpeg.patch
+Patch13:	DirectFB-1.7.4-uniquewm-compile-fixes.patch
 
 Conflicts:	%mklibname directfb -d < 1.7
 BuildRequires:	bzip2-devel
 BuildRequires:	jpeg-devel
+BuildRequires:	mng-devel
 BuildRequires:	sysfsutils-devel
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(fusionsound)
 BuildRequires:	pkgconfig(gbm)
 BuildRequires:	pkgconfig(glesv2)
+BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(jasper)
 BuildRequires:	pkgconfig(libdrm)
+BuildRequires:	pkgconfig(libkms)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libsvg-cairo)
+BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libvncserver)
+BuildRequires:	pkgconfig(swfdec-0.8)
 BuildRequires:	pkgconfig(tslib-0.0)
 BuildRequires:	pkgconfig(vdpau)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xproto)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(libwebp)
 %if %{build_multi}
 BuildRequires:	fusion-devel >= 3.0
 %endif
@@ -84,6 +98,12 @@ Group:		System/Libraries
 %description -n	%{libdirect}
 The direct library, a part of directfb
 
+%package -n	%{libuniquewm}
+Summary:	The uniquewm library, a part of directfb
+Group:		System/Libraries
+
+%description -n	%{libuniquewm}
+The fusion library, a part of directfb
 
 %package -n	%{libppdfb}
 Summary:	The ++dfb library, a part of directfb
@@ -92,13 +112,47 @@ Group:		System/Libraries
 %description -n	%{libppdfb}
 The ++dfb library, a part of directfb
 
-
 %package -n	%{libfusion}
 Summary:	The fusion library, a part of directfb
 Group:		System/Libraries
 
 %description -n	%{libfusion}
 The fusion library, a part of directfb
+
+%package -n	%{libfusiondale}
+Summary:	The fusiondale library, a part of directfb
+Group:		System/Libraries
+
+%description -n	%{libfusiondale}
+The fusiondale library, a part of directfb
+
+%package -n	%{libfusionsound}
+Summary:	The fusionsound library, a part of directfb
+Group:		System/Libraries
+
+%description -n	%{libfusionsound}
+The fusionsound library, a part of directfb
+
+%package -n	%{libuniquewm}
+Summary:	The uniquewm library, a part of directfb
+Group:		System/Libraries
+
+%description -n	%{libuniquewm}
+The uniquewm library, a part of directfb
+
+%package -n	%{libdivine}
+Summary:	The divine library, a part of directfb
+Group:		System/Libraries
+
+%description -n	%{libuniquewm}
+The divine library, a part of directfb
+
+%package -n	%{libsawman}
+Summary:	The sawman library, a part of directfb
+Group:		System/Libraries
+
+%description -n	%{libsawman}
+The sawman library, a part of directfb
 
 %package -n	%{libdavinci}
 Summary:	The davinci library, a part of directfb
@@ -135,20 +189,83 @@ DirectFB documentation and examples.
 %patch9 -p1 -b .davinci~
 %patch10 -p1 -b .atomic~
 %patch11 -p1 -b .thumb~
+%patch12 -p1 -b .ffmpeg~
+%patch13 -p1 -b .uniquewm~
 
 # Needed for Qt 5 as of Qt 5.0.1:
-sed -i -e '/define __typeof/d' lib/direct/os/linux/glibc/types.h
+sed -e '/define __typeof/d' -i lib/direct/os/linux/glibc/types.h
 find . -name "*.h" |xargs sed -i -e 's,__typeof__,typeof,g'
 
 autoreconf -if
 
 %build
+%global optflags %{optflags} -Ofast -w
 %configure2_5x \
 	--disable-maintainer-mode \
 	--enable-shared \
 	--disable-fast-install \
 	--disable-debug \
 	--enable-zlib \
+	--enable-x11 \
+	--enable-x11vdpau \
+	--enable-text \
+	--enable-gettid \
+	--enable-network \
+	--enable-dynload \
+	--enable-multicore \
+	--disable-one \
+	--disable-voodoo \
+	--disable-pure-voodoo \
+	--enable-divine \
+	--enable-fusionsound \
+	--enable-fusiondale \
+	--enable-fs-ieee-floats \
+	--enable-unique \
+	--enable-sawman \
+	--disable-pvr2d \
+	--disable-egl \
+	--enable-idirectfbgl-egl \
+	--enable-devmem \
+	--enable-fbdev \
+	--enable-sdl \
+	--enable-vnc \
+	--enable-mesa \
+	--enable-drmkms \
+	--enable-jpeg \
+	--enable-zlib \
+	--enable-mng \
+	--enable-gstreamer \
+	--enable-gif \
+	--enable-tiff \
+	--enable-imlib2 \
+	--enable-pnm \
+	--enable-svg \
+	--enable-mpeg2 \
+	--enable-bmp \
+	--enable-jpeg2000 \
+	--enable-openquicktime \
+	--enable-avifile \
+	--enable-libmpeg3 \
+	--enable-flash \
+	--enable-xine \
+	--enable-xine-vdpau \
+	--enable-swfdec \
+	--enable-ffmpeg \
+	--enable-freetype \
+	--enable-video4linux2 \
+	--enable-webp \
+	--enable-linotype \
+	--with-fs-drivers=all \
+	--with-timidity \
+	--with-wave \
+	--with-vorbis \
+	--with-mad \
+	--with-cdda \
+	--with-gfxdrivers=all \
+	--with-inputdrivers=all \
+	--with-smooth-scaling \
+	--with-dither-rgb16=advanced \
+	--with-dither=advanced \
 %ifarch %{ix86}
 	--disable-mmx \
 	--disable-sse \
@@ -176,6 +293,15 @@ autoreconf -if
 %{_bindir}/directfb*
 %{_bindir}/mkd*
 %{_bindir}/pxa3xx_dump
+%{_bindir}/fddump
+%{_bindir}/fdmaster
+%{_bindir}/fsdump
+%{_bindir}/fsmaster
+%{_bindir}/fsplay
+%{_bindir}/fsvolume
+%{_bindir}/spooky
+%{_bindir}/swmdump
+%{_bindir}/uwmdump
 %{_datadir}/%{name}-%{version}
 %{_libdir}/%{name}-%{api}-%{major}
 
@@ -183,6 +309,11 @@ autoreconf -if
 %{multiarch_bindir}/directfb-config
 %{_includedir}/directfb
 %{_includedir}/directfb-internal
+%{_includedir}/divine
+%{_includedir}/fusiondale
+%{_includedir}/fusionsound
+%{_includedir}/fusionsound-internal
+%{_includedir}/sawman
 %{_includedir}/++dfb
 %{_mandir}/man1/directfb-csource.1*
 %{_mandir}/man1/dfbg.1*
@@ -202,11 +333,26 @@ autoreconf -if
 %files -n %{libfusion}
 %{_libdir}/libfusion-%{api}.so.%{major}*
 
+%files -n %{libfusiondale}
+%{_libdir}/libfusiondale-%{api}.so.%{major}*
+
+%files -n %{libfusionsound}
+%{_libdir}/libfusionsound-%{api}.so.%{major}*
+
+%files -n %{libuniquewm}
+%{_libdir}/libuniquewm-%{api}.so.%{major}*
+
+%files -n %{libdivine}
+%{_libdir}/libdivine-%{api}.so.%{major}*
+
+%files -n %{libsawman}
+%{_libdir}/libsawman-%{api}.so.%{major}*
+
 %ifarch %{armx}
 %files -n %{libdavinci}
 %{_libdir}/libdavinci-%{api}.so.%{major}*
 %endif
 
 %files doc
-%doc docs/html/*
+%doc docs/html/*.html
 %doc README* AUTHORS NEWS TODO

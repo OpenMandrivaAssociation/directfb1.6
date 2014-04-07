@@ -1,0 +1,49 @@
+--- DirectFB-1.7.4/wm/unique/test_foo.c~	2014-04-07 19:20:41.788706452 +0200
++++ DirectFB-1.7.4/wm/unique/test_foo.c	2014-04-07 19:20:44.236537822 +0200
+@@ -143,7 +143,7 @@ foo_channel_listener( const void *msg_da
+      shared = context->shared;
+      D_MAGIC_ASSERT( shared, WMShared );
+ 
+-     dfb_layer_context_lock( region->context );
++     dfb_layer_context_lock( context->region );
+ 
+      switch (event->type) {
+           case UIET_MOTION:
+@@ -180,7 +180,7 @@ foo_channel_listener( const void *msg_da
+                break;
+      }
+ 
+-     dfb_layer_context_unlock( region->context );
++     dfb_layer_context_unlock( context->region );
+ 
+      return RS_OK;
+ }
+--- DirectFB-1.7.4/wm/unique/uniquewm.c~	2014-04-07 19:20:48.491245329 +0200
++++ DirectFB-1.7.4/wm/unique/uniquewm.c	2014-04-07 19:20:50.275122134 +0200
+@@ -279,7 +279,7 @@ unique_wm_create_context( void )
+      D_MAGIC_ASSERT( wm_shared, WMShared );
+      D_ASSERT( wm_shared->context_pool != NULL );
+ 
+-     return (UniqueContext*) fusion_object_create( wm_shared->context_pool, wm_data->world );
++     return (UniqueContext*) fusion_object_create( wm_shared->context_pool, wm_data->world, 0 );
+ }
+ 
+ UniqueDecoration *
+@@ -290,7 +290,7 @@ unique_wm_create_decoration( void )
+      D_MAGIC_ASSERT( wm_shared, WMShared );
+      D_ASSERT( wm_shared->decoration_pool != NULL );
+ 
+-     return (UniqueDecoration*) fusion_object_create( wm_shared->decoration_pool, wm_data->world );
++     return (UniqueDecoration*) fusion_object_create( wm_shared->decoration_pool, wm_data->world, 0 );
+ }
+ 
+ UniqueWindow *
+@@ -301,7 +301,7 @@ unique_wm_create_window( void )
+      D_MAGIC_ASSERT( wm_shared, WMShared );
+      D_ASSERT( wm_shared->window_pool != NULL );
+ 
+-     return (UniqueWindow*) fusion_object_create( wm_shared->window_pool, wm_data->world );
++     return (UniqueWindow*) fusion_object_create( wm_shared->window_pool, wm_data->world, 0 );
+ }
+ 
+ /**************************************************************************************************/
