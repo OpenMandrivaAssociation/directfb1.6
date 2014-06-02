@@ -1,16 +1,16 @@
-%define	oname	DirectFB
-%define api	1.7
-%define major	4
-%define libdirectfb	%mklibname %{name} %{api} %{major}
-%define	libdirect	%mklibname direct %{api} %{major}
-%define	libppdfb	%mklibname ++dfb %{api} %{major}
-%define	libfusion	%mklibname fusion %{api} %{major}
-%define	libfusiondale	%mklibname fusiondale %{api} %{major}
-%define	libfusionsound	%mklibname fusionsound %{api} %{major}
-%define	libuniquewm	%mklibname uniquewm %{api} %{major}
-%define	libdivine	%mklibname libdivine %{api} %{major}
-%define	libsawman	%mklibname libsawman %{api} %{major}
-%define	libdavinci	%mklibname davinci %{api} %{major}
+%define oname DirectFB
+%define api 1.7
+%define major 4
+%define libdirectfb %mklibname %{name} %{api} %{major}
+%define libdirect %mklibname direct %{api} %{major}
+%define libppdfb %mklibname ++dfb %{api} %{major}
+%define libfusion %mklibname fusion %{api} %{major}
+%define libfusiondale %mklibname fusiondale %{api} %{major}
+%define libfusionsound %mklibname fusionsound %{api} %{major}
+%define libuniquewm %mklibname uniquewm %{api} %{major}
+%define libdivine %mklibname libdivine %{api} %{major}
+%define libsawman %mklibname libsawman %{api} %{major}
+%define libdavinci %mklibname davinci %{api} %{major}
 %define devname %mklibname %{name} %{api} -d
 
 # Multiple applications support
