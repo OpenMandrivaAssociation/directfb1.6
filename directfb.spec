@@ -26,7 +26,7 @@ Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.directfb.org/
-Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{api}/%{oname}-%{version}.tar.xz
+Source0:	http://www.directfb.org/downloads/Core/%{oname}-%{api}/%{oname}-%{version}.tar.gz
 # from Debian
 Patch0:		03_link_static_sysfs.patch
 Patch1:		DirectFB-1.6.1-link-static-ar.patch
