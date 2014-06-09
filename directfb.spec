@@ -249,7 +249,7 @@ autoreconf -if
 	--enable-flash \
 	--enable-xine \
 	--enable-xine-vdpau \
-	--enable-swfdec \
+	--disable-swfdec \
 	--enable-ffmpeg \
 	--enable-freetype \
 	--enable-video4linux2 \
