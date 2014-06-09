@@ -19,6 +19,8 @@
 %{?_without_multi: %{expand: %%global build_multi 0}}
 %{?_with_multi: %{expand: %%global build_multi 1}}
 
+%define Werror_cflags %nil
+
 Summary:	Hardware graphics acceleration library
 Name:		directfb
 Version:	1.7.4
