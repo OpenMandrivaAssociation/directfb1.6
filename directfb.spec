@@ -52,7 +52,7 @@ Patch13:	DirectFB-1.7.4-uniquewm-compile-fixes.patch
 Conflicts:	%mklibname directfb -d < 1.7
 BuildRequires:	bzip2-devel
 BuildRequires:	jpeg-devel
-BuildRequires:	mng-devel
+BuildRequires:	pkgconfig(libmng)
 BuildRequires:	sysfsutils-devel
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(freetype2)
