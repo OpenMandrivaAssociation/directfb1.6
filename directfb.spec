@@ -56,6 +56,7 @@ BuildRequires:	pkgconfig(libmng)
 BuildRequires:	sysfsutils-devel
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(libdrm)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(fusionsound)
 BuildRequires:	pkgconfig(gbm)
