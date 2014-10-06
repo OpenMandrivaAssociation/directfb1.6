@@ -222,7 +222,7 @@ export CXX=g++
 	--disable-one \
 	--disable-voodoo \
 	--disable-pure-voodoo \
-	--enable-divine \
+	--disable-divine \
 	--enable-fusionsound \
 	--enable-fusiondale \
 	--enable-fs-ieee-floats \
