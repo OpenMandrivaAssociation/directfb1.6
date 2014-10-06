@@ -202,7 +202,11 @@ autoreconf -if
 
 %build
 %global optflags %{optflags} -Ofast -w
-%configure2_5x \
+
+export CC=gcc
+export CXX=g++
+
+%configure \
 	--disable-maintainer-mode \
 	--enable-shared \
 	--disable-fast-install \
