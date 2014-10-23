@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   DirectFB-1.7.6.tar.gz: 81ae67f9763231b9bff8ab96669297901ef14a0d
+sources:
+  DirectFB-1.7.6.tar.gz: 1a6faeb1ba8627826fc975dcf98f49c598476032
