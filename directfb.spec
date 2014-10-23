@@ -225,10 +225,10 @@ export CXX=g++
 	--enable-network \
 	--enable-dynload \
 	--enable-multicore \
+	--enable-divine \
 	--disable-one \
 	--disable-voodoo \
 	--disable-pure-voodoo \
-	--disable-divine \
 	--enable-fusionsound \
 	--enable-fusiondale \
 	--enable-fs-ieee-floats \
