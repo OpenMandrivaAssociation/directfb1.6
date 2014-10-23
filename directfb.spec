@@ -1,6 +1,6 @@
 %define oname DirectFB
 %define api 1.7
-%define major 5
+%define major 6
 %define libdirectfb %mklibname %{name} %{api} %{major}
 %define libdirect %mklibname direct %{api} %{major}
 %define libppdfb %mklibname ++dfb %{api} %{major}
@@ -201,8 +201,8 @@ DirectFB documentation and examples.
 %patch13 -p1 -b .uniquewm~
 
 # Needed for Qt 5 as of Qt 5.0.1:
-sed -e '/define __typeof/d' -i lib/direct/os/linux/glibc/types.h
-find . -name "*.h" |xargs sed -i -e 's,__typeof__,typeof,g'
+#sed -e '/define __typeof/d' -i lib/direct/os/linux/glibc/types.h
+#find . -name "*.h" |xargs sed -i -e 's,__typeof__,typeof,g'
 
 autoreconf -if
 
