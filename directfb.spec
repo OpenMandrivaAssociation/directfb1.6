@@ -110,7 +110,6 @@ autoreconf -if
 %configure \
 	--disable-maintainer-mode \
 	--enable-shared \
-	--disable-static \
 	--disable-fast-install \
 	--disable-debug \
 	--enable-zlib \
