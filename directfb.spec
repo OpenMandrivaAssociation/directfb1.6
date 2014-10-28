@@ -1,8 +1,8 @@
 %define	oname	DirectFB
 %define api	1.6
 %define major	0
-%define libname	%mklibname %{name} %{api} %{major}
-%define devname %mklibname %{name} -d
+%define libname	%mklibname directfb %{api} %{major}
+%define devname %mklibname directfb -d
 
 # Multiple applications support
 # Requires fusion kernel module
@@ -11,7 +11,7 @@
 %{?_with_multi: %{expand: %%global build_multi 1}}
 
 Summary:	Hardware graphics acceleration library
-Name:		directfb
+Name:		directfb1.6
 Version:	1.6.3
 Release:	8
 License:	LGPLv2+
@@ -75,7 +75,7 @@ It's required for running apps based on %{oname}.
 Group:		Development/C
 Summary:	Header files for compiling DirectFB applications
 Requires:	%{libname} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
+Provides:	directfb-devel = %{version}-%{release}
 
 %description -n %{devname}
 DirectFB header files for building applications based on %{oname}.
