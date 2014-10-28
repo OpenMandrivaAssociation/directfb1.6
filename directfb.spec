@@ -107,7 +107,7 @@ find . -name "*.h" |xargs sed -i -e 's,__typeof__,typeof,g'
 autoreconf -if
 
 %build
-%configure2_5x \
+%configure \
 	--disable-maintainer-mode \
 	--enable-shared \
 	--disable-static \
