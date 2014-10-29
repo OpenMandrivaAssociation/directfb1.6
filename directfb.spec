@@ -13,7 +13,7 @@
 Summary:	Hardware graphics acceleration library
 Name:		directfb1.6
 Version:	1.6.3
-Release:	9
+Release:	10
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.directfb.org/
@@ -35,6 +35,11 @@ Patch8:		DirectFB-1.6.1-zlib.patch
 Patch9:		DirectFB-1.5.3-add-missing-davinci-files.patch
 Patch10:	DirectFB-1.6.1-gcc-atomics-on-arm.patch
 Patch11:	DirectFB-1.6.3-atomic-fix-compiler-error-when-building-for-thumb2.patch
+# Yocto patches
+Patch20:	rename-no-instrument-function-macro.patch
+Patch21:	fixsepbuild.patch
+Patch22:	configurefix.patch
+Patch23:	fusion.patch  
 
 BuildRequires:	bzip2-devel
 BuildRequires:	jpeg-devel
@@ -99,6 +104,10 @@ DirectFB documentation and examples.
 %patch9 -p1 -b .davinci
 %patch10 -p1 -b .atomic
 %patch11 -p1 -b .thumb
+%patch20 -p1 -b .renamefunc~
+%patch21 -p1 -b .sepbuild~
+%patch22 -p1 -b .configurefix~
+%patch23 -p1 -b .fusion~
 
 # Needed for Qt 5 as of Qt 5.0.1:
 sed -i -e '/define __typeof/d' lib/direct/os/linux/glibc/types.h
