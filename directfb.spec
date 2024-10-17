@@ -16,7 +16,7 @@ Version:	1.6.3
 Release:	12
 License:	LGPLv2+
 Group:		System/Libraries
-URL:		http://www.directfb.org/
+URL:		https://www.directfb.org/
 Source0:	http://directfb.org/downloads/Core/%{oname}-1.6/%{oname}-%{version}.tar.gz
 # from Debian
 Patch0:		03_link_static_sysfs.patch
